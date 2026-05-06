@@ -111,78 +111,81 @@ Frontend Dashboard (Leaflet)
   "rain": 40,
   "water_level": 5
 }
-✅ Phase 3: Sensor Simulator
- sensor_simulator.py created
- Random data generation working
- Sending data every 5 sec
- Backend receiving data
+```
+
+## ✅ Phase 3: Sensor Simulator
+- sensor_simulator.py created
+- Random data generation working
+- Sending data every 5 sec
+- Backend receiving data
 
 📌 Notes:
 
-🔄 Phase 4: Kafka Producer
- Kafka setup using Docker
- kafka_producer.py created
- Connected to Kafka server
- Sending data to topic: sensor-topic
+## 🔄 Phase 4: Kafka Producer
+- Kafka setup using Docker
+- kafka_producer.py created
+- Connected to Kafka server
+- Sending data to topic: sensor-topic
 
 📌 Notes:
 
-🔄 Phase 5: Kafka Consumer
- kafka_consumer.py created
- Consuming from topic
- Data printing in terminal
- Continuous listening working
+## 🔄 Phase 5: Kafka Consumer
+- kafka_consumer.py created
+- Consuming from topic
+- Data printing in terminal
+- Continuous listening working
 
 📌 Notes:
 
-Phase 6: Processing Logic
- processing.py created
- Flood risk calculation added
- AQI classification added
- Output structured
- 📌 Example Output:
- {
+## 🔄 Phase 6: Processing Logic
+- processing.py created
+- Flood risk calculation added
+- AQI classification added
+- Output structured
+
+📌 Example Output:
+```json
+{
   "zone": "Rahate Colony A",
   "flood_risk": 78,
   "status": "HIGH RISK"
 }
-📌 Notes:
+```
 
-🔄 Phase 7: MongoDB Integration
- MongoDB connected
- database.py created
- Data storing correctly
- Collections created
-
-📌 Notes:
-
- 🔄 Phase 8: Frontend Dashboard
- index.html created
- Leaflet map integrated
- Zones plotted on map
- Data fetched from backend
+## 🔄 Phase 7: MongoDB Integration
+- MongoDB connected
+- database.py created
+- Data storing correctly
+- Collections created
 
 📌 Notes:
 
-🔄 Phase 9: Dynamic Updates
- script.js fetching real-time data
- Map updating dynamically
- Color change based on risk
+## 🔄 Phase 8: Frontend Dashboard
+- index.html created
+- Leaflet map integrated
+- Zones plotted on map
+- Data fetched from backend
 
 📌 Notes:
 
-
-🔄 Phase 10: Machine Learning
- Model trained
- AQI prediction working
- Flood prediction working
+## 🔄 Phase 9: Dynamic Updates
+- script.js fetching real-time data
+- Map updating dynamically
+- Color change based on risk
 
 📌 Notes:
 
-🔄 Phase 11: Hardware Integration (Optional)
- ESP32 setup
- Sensors connected
- Data sending via WiFi
- Real sensor data integrated
+## 🔄 Phase 10: Machine Learning
+- Model trained
+- AQI prediction working
+- Flood prediction working
+
+📌 Notes:
+
+## 🔄 Phase 11: Hardware Integration (Optional)
+- ESP32 setup
+- Sensors connected
+- Data sending via WiFi
+- Real sensor data integrated
 
 📌 Notes:
