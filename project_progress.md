@@ -103,15 +103,7 @@ Frontend Dashboard (Leaflet)
 - [ ] /sensor-data POST API working
 - [ ] Data receiving correctly
 
-📌 Sample Input:
-```json
-{
-  "zone": "Rahate Colony A",
-  "aqi": 120,
-  "rain": 40,
-  "water_level": 5
-}
-```
+
 
 ## ✅ Phase 3: Sensor Simulator
 - sensor_simulator.py created
