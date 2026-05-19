@@ -2,8 +2,23 @@ from processing import process_environmental_data
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from fastapi.middleware.cors import CORSMiddleware
+
 # Create FastAPI app
 app = FastAPI()
+
+latest_data = {}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Store latest data
+latest_data = {}
 
 # Sensor Data Model
 class SensorData(BaseModel):
@@ -28,6 +43,9 @@ def receive_sensor_data(data: SensorData):
     # Process environmental data
     processed_data = process_environmental_data(raw_data)
 
+    global latest_data
+    latest_data = processed_data
+
     print("\n===== PROCESSED ENVIRONMENT DATA =====")
 
     for key, value in processed_data.items():
@@ -37,3 +55,17 @@ def receive_sensor_data(data: SensorData):
         "status": "success",
         "processed_data": processed_data
     }
+
+    for key, value in processed_data.items():
+        print(f"{key}: {value}")
+
+    return {
+        "status": "success",
+        "processed_data": processed_data
+    }
+
+
+    @app.get("/latest-data")
+    def get_latest_data():
+
+        return latest_data
