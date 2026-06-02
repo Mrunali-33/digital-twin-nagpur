@@ -1,19 +1,19 @@
-.map-wrapper {
-
-  width: 100%;
-  height: 600px;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-
-  border: 2px solid #1e293b;
-
-  box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-}
-
-.map-container {
-
+.leaflet-container {
   width: 100%;
   height: 100%;
+  background: #071018;
+}
+
+.leaflet-control-attribution {
+  display: none;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+}
+
+.leaflet-control-zoom a {
+  background: #0B1622 !important;
+  color: cyan !important;
+  border: 1px solid rgba(0,255,255,0.2) !important;
 }
