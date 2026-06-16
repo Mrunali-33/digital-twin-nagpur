@@ -84,6 +84,15 @@ function LeftSidebar({ data }) {
 
       </div>
 
+      {/* Future Backend-Driven Intelligence */}
+
+       {/* <AreaIntelligencePanel /> */}
+
+       {/* <RegionalRankingPanel /> */}
+
+       {/* <AIRecommendedActionsPanel /> */}
+
+
       {/* METRICS */}
 
       {metrics.map((metric, index) => (

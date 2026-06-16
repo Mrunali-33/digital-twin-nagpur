@@ -6,16 +6,43 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
+function PollutionPieChart({ data }) {
 
-  { name: "Good", value: 35 },
-  { name: "Moderate", value: 45 },
-  { name: "Poor", value: 20 },
-];
+  const aqi = data?.aqi || 0;
 
-const COLORS = ["#22c55e", "#eab308", "#ef4444"];
+  let chartData = [];
 
-function PollutionPieChart() {
+  if (aqi <= 100) {
+
+    chartData = [
+      { name: "Good", value: 70 },
+      { name: "Moderate", value: 20 },
+      { name: "Poor", value: 10 },
+    ];
+
+  } else if (aqi <= 200) {
+
+    chartData = [
+      { name: "Good", value: 20 },
+      { name: "Moderate", value: 50 },
+      { name: "Poor", value: 30 },
+    ];
+
+  } else {
+
+    chartData = [
+      { name: "Good", value: 10 },
+      { name: "Moderate", value: 20 },
+      { name: "Poor", value: 70 },
+    ];
+
+  }
+
+  const COLORS = [
+    "#22c55e",
+    "#eab308",
+    "#ef4444",
+  ];
 
   return (
 
@@ -25,17 +52,20 @@ function PollutionPieChart() {
         Pollution Distribution
       </h2>
 
-      <ResponsiveContainer width="100%" height={220}>
+      <ResponsiveContainer
+        width="100%"
+        height={220}
+      >
 
         <PieChart>
 
           <Pie
-            data={data}
+            data={chartData}
             dataKey="value"
             outerRadius={80}
           >
 
-            {data.map((entry, index) => (
+            {chartData.map((entry, index) => (
 
               <Cell
                 key={index}
@@ -53,6 +83,7 @@ function PollutionPieChart() {
       </ResponsiveContainer>
 
     </div>
+
   );
 }
 

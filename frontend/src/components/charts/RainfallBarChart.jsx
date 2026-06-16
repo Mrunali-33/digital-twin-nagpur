@@ -7,16 +7,9 @@ import {
   Tooltip,
 } from "recharts";
 
-const data = [
-
-  { day: "Mon", rain: 12 },
-  { day: "Tue", rain: 18 },
-  { day: "Wed", rain: 9 },
-  { day: "Thu", rain: 22 },
-  { day: "Fri", rain: 15 },
-];
-
-function RainfallBarChart() {
+function RainfallBarChart({
+  history,
+}) {
 
   return (
 
@@ -28,21 +21,30 @@ function RainfallBarChart() {
 
       <ResponsiveContainer width="100%" height={220}>
 
-        <BarChart data={data}>
+        <BarChart data={history}>
 
-          <XAxis dataKey="day" stroke="#888" />
+          <XAxis
+            dataKey="time"
+            stroke="#888"
+          />
 
-          <YAxis stroke="#888" />
+          <YAxis
+            stroke="#888"
+          />
 
           <Tooltip />
 
-          <Bar dataKey="rain" fill="#00D1FF" />
+          <Bar
+            dataKey="rain"
+            fill="#00D1FF"
+          />
 
         </BarChart>
 
       </ResponsiveContainer>
 
     </div>
+
   );
 }
 

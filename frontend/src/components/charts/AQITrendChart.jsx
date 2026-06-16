@@ -7,16 +7,9 @@ import {
   Tooltip,
 } from "recharts";
 
-const data = [
-
-  { time: "1PM", aqi: 72 },
-  { time: "2PM", aqi: 81 },
-  { time: "3PM", aqi: 76 },
-  { time: "4PM", aqi: 90 },
-  { time: "5PM", aqi: 85 },
-];
-
-function AQITrendChart() {
+function AQITrendChart({
+  history,
+}) {
 
   return (
 
@@ -28,11 +21,16 @@ function AQITrendChart() {
 
       <ResponsiveContainer width="100%" height={220}>
 
-        <LineChart data={data}>
+        <LineChart data={history}>
 
-          <XAxis dataKey="time" stroke="#888" />
+          <XAxis
+            dataKey="time"
+            stroke="#888"
+          />
 
-          <YAxis stroke="#888" />
+          <YAxis
+            stroke="#888"
+          />
 
           <Tooltip />
 
@@ -48,6 +46,7 @@ function AQITrendChart() {
       </ResponsiveContainer>
 
     </div>
+
   );
 }
 

@@ -4,9 +4,13 @@
   background: #071018;
 }
 
+/* Hide attribution */
+
 .leaflet-control-attribution {
   display: none;
 }
+
+/* Zoom Buttons */
 
 .leaflet-control-zoom {
   border: none !important;
@@ -15,5 +19,90 @@
 .leaflet-control-zoom a {
   background: #0B1622 !important;
   color: cyan !important;
-  border: 1px solid rgba(0,255,255,0.2) !important;
+  border: 1px solid rgba(0, 255, 255, 0.2) !important;
+}
+
+/* Area Labels */
+
+.custom-area-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #c4f1ff !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+  padding: 0 !important;
+}
+
+.custom-area-label::before {
+  display: none !important;
+}
+
+/* Remove Leaflet default tooltip styling */
+
+.leaflet-tooltip.custom-area-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.sensor-pulse {
+  animation: sensorPulse 2s infinite;
+}
+
+@keyframes sensorPulse {
+  0% {
+    r: 10;
+    opacity: 0.9;
+  }
+
+  70% {
+    r: 24;
+    opacity: 0;
+  }
+
+  100% {
+    r: 24;
+    opacity: 0;
+  }
+}
+
+.area-danger-critical {
+  animation: dangerPulse 1.4s infinite;
+}
+
+.area-danger-warning {
+  animation: warningAura 2.5s infinite;
+}
+
+@keyframes dangerPulse {
+
+  0% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
+
+}
+
+@keyframes warningAura {
+
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+
 }

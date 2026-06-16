@@ -3,19 +3,33 @@ import RainfallBarChart from "../charts/RainfallBarChart";
 import PollutionPieChart from "../charts/PollutionPieChart";
 import EnvironmentalMetrics from "../charts/EnvironmentalMetrics";
 
-function BottomAnalytics() {
+function BottomAnalytics({
+  data,
+  history,
+}) {
+
   return (
+
     <div className="h-full grid grid-cols-4 gap-3">
 
-      <PollutionPieChart />
+      <PollutionPieChart
+        data={data}
+      />
 
-      <AQITrendChart />
+      <AQITrendChart
+        history={history}
+      />
 
-      <RainfallBarChart />
+      <RainfallBarChart
+        history={history}
+      />
 
-      <EnvironmentalMetrics />
+      <EnvironmentalMetrics
+        data={data}
+      />
 
     </div>
+
   );
 }
 
