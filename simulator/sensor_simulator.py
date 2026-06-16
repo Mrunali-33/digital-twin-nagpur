@@ -7,9 +7,8 @@ API_URL = "http://127.0.0.1:8000/sensor-data"
 
 # Rahate Colony Zones
 zones = [
-    "Rahate Colony A",
-    "Rahate Colony B",
-    "Rahate Colony C"
+    "NEERI",
+    "RAHATE"
 ]
 
 print("🚀 Sensor Simulator Started...\n")
