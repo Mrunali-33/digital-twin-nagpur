@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-
+from services.area_engine import (
+    update_area_data,
+    get_all_areas
+)
 from processing import process_environmental_data
 
 # CREATE FASTAPI APP
@@ -55,6 +58,8 @@ def receive_sensor_data(data: SensorData):
 
     latest_data = processed_data
 
+    update_area_data(processed_data)
+
     print("\n===== PROCESSED ENVIRONMENT DATA =====")
 
     for key, value in processed_data.items():
@@ -72,3 +77,8 @@ def receive_sensor_data(data: SensorData):
 def get_latest_data():
 
     return latest_data
+
+@app.get("/areas")
+def get_area_data():
+
+    return get_all_areas()
