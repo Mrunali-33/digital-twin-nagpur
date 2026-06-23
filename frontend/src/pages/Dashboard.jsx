@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { fetchEnvironmentalData } from "../services/api";
-
+import { fetchEnvironmentalData, fetchHistory} from "../services/api";
+import {
+  getAQITrend,
+  getRiskTrend,
+  getEnvironmentHealth,
+} from "../services/analyticsApi";
+import {
+  getZoneComparison
+} from "../services/analyticsApi";
 import TopNavbar from "../components/layout/TopNavbar";
 import LeftSidebar from "../components/layout/LeftSidebar";
 import RightPanel from "../components/layout/RightPanel";
@@ -16,6 +23,16 @@ function Dashboard() {
 
   const [history, setHistory] = useState([]);
 
+  const [aqiTrend, setAqiTrend] = useState([]);
+
+  const [riskTrend, setRiskTrend] = useState([]);
+
+  const [zoneComparison, setZoneComparison] =
+  useState(null);
+
+  const [environmentHealth, setEnvironmentHealth] =
+  useState([]);
+
   useEffect(() => {
 
     const loadData = async () => {
@@ -26,41 +43,139 @@ function Dashboard() {
 
       setData(result);
 
-      setHistory((prev) => {
+      const historyData =
+        await fetchHistory();
 
-        const updatedHistory = [
+      const formattedHistory =
+        historyData.map((item) => ({
 
-          ...prev,
+         time: new Date(
+          item.timestamp
+         ).toLocaleTimeString(),
 
-          {
-            time: new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
+         aqi: item.aqi,
 
-            aqi: result.aqi || 0,
+         rain: item.rain,
 
-            rain: result.rain || 0,
+         water:
+           item.water_level,
 
-            water: result.water_level || 0,
+         risk:
+           item.risk_score
 
-          },
+        }));
 
-        ];
+     setHistory(
+       formattedHistory
+     );
 
-        return updatedHistory.slice(-10);
+     const zoneData =
+       await getZoneComparison();
 
-      });
+     setZoneComparison(zoneData);
+
+     const aqiData =
+       await getAQITrend();
+ 
+     setAqiTrend(
+
+       aqiData.map((item) => ({
+
+         time: new Date(
+          item.time
+         ).toLocaleTimeString(),
+
+         aqi: item.aqi
+
+      }))
+
+     );
+
+     const riskData =
+       await getRiskTrend();
+
+     setRiskTrend(
+
+     riskData.map((item) => ({
+
+       time: new Date(
+        item.time
+       ).toLocaleTimeString(),
+
+       risk_score:
+       item.risk_score
+
+      }))
+
+     );
+
+     const envData =
+      await getEnvironmentHealth();
+
+     setEnvironmentHealth(envData);
+
 
     };
 
     loadData();
 
-    const interval = setInterval(loadData, 3000);
+     const interval =
+    setInterval(
+      loadData,
+      3000
+    );
 
-    return () => clearInterval(interval);
+  return () =>
+    clearInterval(interval);
 
-  }, []);
+}, []);
+
+useEffect(() => {
+
+  const ws = new WebSocket(
+    "ws://127.0.0.1:8000/ws"
+  );
+
+  ws.onopen = () => {
+
+    console.log(
+      "✅ WebSocket Connected"
+    );
+
+  };
+
+ws.onmessage = (event) => {
+
+  console.log(
+    "Message:",
+    event.data
+  );
+
+};
+  ws.onerror = (error) => {
+
+    console.log(
+      "❌ WebSocket Error",
+      error
+    );
+
+  };
+
+  ws.onclose = () => {
+
+    console.log(
+      "⚠️ WebSocket Closed"
+    );
+
+  };
+
+  return () => {
+
+    ws.close();
+
+  };
+
+}, []);
 
   return (
 
@@ -113,7 +228,11 @@ function Dashboard() {
         <BottomAnalytics
           data={data}
           history={history}
-        />
+          aqiTrend={aqiTrend}
+          zoneComparison={zoneComparison}
+          riskTrend={riskTrend}
+          environmentHealth={environmentHealth}
+       />
 
       </div>
 

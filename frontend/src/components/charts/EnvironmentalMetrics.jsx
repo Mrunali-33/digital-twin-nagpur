@@ -1,12 +1,17 @@
-function EnvironmentalMetrics({ data }) {
+function EnvironmentalMetrics({
+  data,
+  environmentHealth,
+}) {
 
-  const floodProbability = Math.min(
-    Math.round(
-      data?.rain +
-      data?.water_level * 5
-    ),
-    100
-  );
+  const latestHealthScore =
+    environmentHealth?.length > 0
+      ? environmentHealth[
+          environmentHealth.length - 1
+        ].health_score
+      : 0;
+
+  const floodProbability =
+    data?.flood_probability || 0;
 
   return (
 
@@ -25,7 +30,7 @@ function EnvironmentalMetrics({ data }) {
           </p>
 
           <h1 className="text-red-400 text-3xl font-bold">
-            {floodProbability}%
+            {Math.round(floodProbability)}%
           </h1>
 
         </div>
@@ -45,11 +50,15 @@ function EnvironmentalMetrics({ data }) {
         <div className="bg-[#071018] p-3 rounded-xl">
 
           <p className="text-gray-400">
-            Current AQI
+            Health Score
           </p>
 
-          <h1 className="text-cyan-400 text-3xl font-bold">
-            {data?.aqi}
+          <h1 className="text-green-400 text-3xl font-bold">
+
+            {Math.round(
+              latestHealthScore
+            )}
+
           </h1>
 
         </div>

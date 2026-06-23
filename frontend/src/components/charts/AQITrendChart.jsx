@@ -23,22 +23,24 @@ function AQITrendChart({
 
         <LineChart data={history}>
 
-          <XAxis
-            dataKey="time"
-            stroke="#888"
-          />
+         <XAxis
+           dataKey="time"
+           tick={false}
+           stroke="#888"
+         />
 
-          <YAxis
-            stroke="#888"
-          />
+         <YAxis
+           stroke="#888"
+         />
 
-          <Tooltip />
+         <Tooltip />
 
-          <Line
-            type="monotone"
-            dataKey="aqi"
-            stroke="#00D1FF"
-            strokeWidth={3}
+         <Line
+           type="monotone"
+           dataKey="aqi"
+           stroke="#00D1FF"
+           strokeWidth={3}
+           dot={false}
           />
 
         </LineChart>

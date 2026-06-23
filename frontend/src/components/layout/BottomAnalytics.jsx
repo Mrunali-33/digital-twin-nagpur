@@ -2,10 +2,16 @@ import AQITrendChart from "../charts/AQITrendChart";
 import RainfallBarChart from "../charts/RainfallBarChart";
 import PollutionPieChart from "../charts/PollutionPieChart";
 import EnvironmentalMetrics from "../charts/EnvironmentalMetrics";
+import RiskTrendChart from "../charts/RiskTrendChart";
+import ZoneComparisonChart
+from "../charts/ZoneComparisonChart";
 
 function BottomAnalytics({
   data,
   history,
+  aqiTrend,
+  riskTrend,
+  zoneComparison,
 }) {
 
   return (
@@ -17,16 +23,16 @@ function BottomAnalytics({
       />
 
       <AQITrendChart
-        history={history}
+        history={aqiTrend}
       />
 
-      <RainfallBarChart
-        history={history}
-      />
+      <RiskTrendChart
+       riskTrend={riskTrend}
+     />
 
-      <EnvironmentalMetrics
-        data={data}
-      />
+      <ZoneComparisonChart
+  data={zoneComparison}
+/>
 
     </div>
 
