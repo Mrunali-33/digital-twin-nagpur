@@ -1,0 +1,33 @@
+[
+    {
+        "sensor_id": "NEERI_AQI_01",
+        "zone": "NEERI",
+        "type": "AQI"
+    },
+    {
+        "sensor_id": "NEERI_RAIN_01",
+        "zone": "NEERI",
+        "type": "RAIN"
+    },
+    {
+        "sensor_id": "NEERI_WATER_01",
+        "zone": "NEERI",
+        "type": "WATER"
+    },
+
+    {
+        "sensor_id": "RAHATE_AQI_01",
+        "zone": "RAHATE",
+        "type": "AQI"
+    },
+    {
+        "sensor_id": "RAHATE_RAIN_01",
+        "zone": "RAHATE",
+        "type": "RAIN"
+    },
+    {
+        "sensor_id": "RAHATE_WATER_01",
+        "zone": "RAHATE",
+        "type": "WATER"
+    }
+]
