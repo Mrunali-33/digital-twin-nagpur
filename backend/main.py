@@ -293,7 +293,7 @@ async def websocket_endpoint(
         websocket
     )
 
-    print("WebSocket Connected")
+    print("WS CONNECTED")
 
     try:
 
@@ -304,7 +304,7 @@ async def websocket_endpoint(
     except Exception as e:
 
         print(
-            "WebSocket Disconnected:",
+            "WS DISCONNECTED:",
             e
         )
 

@@ -15,6 +15,8 @@ sys.path.append(
 from processing import process_environmental_data
 from database import SessionLocal
 from crud import save_sensor_reading
+from websocket_manager import manager
+import asyncio
 
 consumer = KafkaConsumer(
     "sensor-data",
@@ -50,8 +52,18 @@ for message in consumer:
             processed_data
         )
 
+        asyncio.run(
+           manager.broadcast(
+             processed_data
+           )
+        )
+
         print(
-            "Saved to PostgreSQL"
+          "Saved to PostgreSQL"
+        )
+
+        print(
+         "WebSocket Broadcast Sent"
         )
 
     finally:
