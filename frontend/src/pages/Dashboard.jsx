@@ -119,16 +119,9 @@ function Dashboard() {
 
     loadData();
 
-     const interval =
-    setInterval(
-      loadData,
-      3000
-    );
+    return () => {};
 
-  return () =>
-    clearInterval(interval);
-
-}, []);
+  }, []);
 
 useEffect(() => {
 
@@ -146,13 +139,101 @@ useEffect(() => {
 
 ws.onmessage = (event) => {
 
-  console.log(
-    "Message:",
-    event.data
+  const liveData =
+    JSON.parse(event.data);
+
+  setData(
+    liveData
   );
 
+  setHistory((prev) => [
+
+    ...prev.slice(-99),
+
+    {
+      time: new Date()
+        .toLocaleTimeString(),
+
+      aqi: liveData.aqi,
+
+      rain: liveData.rain,
+
+      water: liveData.water_level,
+
+      risk: liveData.risk_score
+    }
+
+  ]);
+
+  setAqiTrend((prev) => [
+
+    ...prev.slice(-19),
+
+    {
+      time: new Date()
+        .toLocaleTimeString(),
+
+      aqi: liveData.aqi
+    }
+
+  ]);
+
+  setRiskTrend((prev) => [
+
+    ...prev.slice(-19),
+
+    {
+      time: new Date()
+        .toLocaleTimeString(),
+
+      risk_score:
+        liveData.risk_score
+    }
+
+  ]);
+
+  setEnvironmentHealth((prev) => [
+
+  ...prev.slice(-19),
+
+  {
+    time: new Date()
+      .toLocaleTimeString(),
+
+    health_score:
+      liveData.health_score
+  }
+
+]);
+
+setZoneComparison((prev) => {
+
+  const current =
+    prev || {};
+
+  return {
+
+    ...current,
+
+    [liveData.zone.toLowerCase()]: {
+
+      aqi:
+        liveData.aqi,
+
+      risk_score:
+        liveData.risk_score,
+
+      health_score:
+        liveData.health_score
+
+    }
+
+  };
+
+});
+
 };
-  ws.onerror = (error) => {
+ws.onerror = (error) => {
 
     console.log(
       "❌ WebSocket Error",

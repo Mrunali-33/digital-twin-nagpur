@@ -12,11 +12,11 @@ function BottomAnalytics({
   aqiTrend,
   riskTrend,
   zoneComparison,
+  environmentHealth,
 }) {
-
   return (
 
-    <div className="h-full grid grid-cols-4 gap-3">
+    <div className="h-full grid grid-cols-5 gap-3">
 
       <PollutionPieChart
         data={data}
@@ -27,13 +27,16 @@ function BottomAnalytics({
       />
 
       <RiskTrendChart
-       riskTrend={riskTrend}
+        riskTrend={riskTrend}
+      /> 
+
+      <EnvironmentalMetrics
+        environmentHealth={environmentHealth}
      />
 
       <ZoneComparisonChart
-  data={zoneComparison}
-/>
-
+        data={zoneComparison}
+     />
     </div>
 
   );
