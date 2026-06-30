@@ -17,7 +17,7 @@ function RightPanel({ data }) {
         Loading...
       </div>
     );
-  }
+  } 
 
 
   

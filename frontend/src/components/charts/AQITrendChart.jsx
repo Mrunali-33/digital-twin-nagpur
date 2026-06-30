@@ -5,49 +5,85 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  CartesianGrid,
 } from "recharts";
 
-function AQITrendChart({
-  history,
-}) {
+import ChartCard from "../common/ChartCard";
+
+function AQITrendChart({ history }) {
 
   return (
 
-    <div className="bg-[#0B1622]/70 border border-cyan-500/20 rounded-2xl p-4 h-full">
+    <ChartCard title="AQI Trend">
 
-      <h2 className="text-cyan-400 font-bold mb-4">
-        AQI Trend
-      </h2>
+      <ResponsiveContainer
+  width="100%"
+  height="92%"
+>
 
-      <ResponsiveContainer width="100%" height={220}>
+        <LineChart
+          data={history}
+          margin={{
+            top: 10,
+            right: 15,
+            left: 12,
+            bottom: 5,
+          }}
+        >
 
-        <LineChart data={history}>
+          <CartesianGrid
+            stroke="#1F3447"
+            strokeDasharray="3 3"
+            opacity={0.35}
+          />
 
-         <XAxis
-           dataKey="time"
-           tick={false}
-           stroke="#888"
-         />
+          <XAxis
+  dataKey="time"
+  tick={{
+    fill: "#64748B",
+    fontSize: 10,
+  }}
+  tickLine={false}
+  axisLine={false}
+  minTickGap={35}
+/>
 
-         <YAxis
-           stroke="#888"
-         />
+          <YAxis
+  stroke="#6B7280"
+  width={34}
+  tick={{
+    fill: "#94A3B8",
+    fontSize: 11,
+  }}
+/>
 
-         <Tooltip />
+          <Tooltip
+            contentStyle={{
+              background: "#071018",
+              border: "1px solid rgba(34,211,238,.25)",
+              borderRadius: "12px",
+              color: "#fff",
+            }}
+          />
 
-         <Line
-           type="monotone"
-           dataKey="aqi"
-           stroke="#00D1FF"
-           strokeWidth={3}
-           dot={false}
+          <Line
+  type="monotone"
+  isAnimationActive
+  animationDuration={900}
+            dataKey="aqi"
+            stroke="#22D3EE"
+            strokeWidth={2.5}
+            dot={false}
+            activeDot={{
+              r: 5,
+            }}
           />
 
         </LineChart>
 
       </ResponsiveContainer>
 
-    </div>
+    </ChartCard>
 
   );
 }

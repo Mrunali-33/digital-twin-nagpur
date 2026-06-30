@@ -99,63 +99,75 @@ const getStatusColor = (status) => {
   }
 };
 
-  return (
-    <>
-      {sensors.map((sensor) => (
+return (
+  <>
+    {sensors.map((sensor) => {
+      const status = getSensorStatus(sensor);
 
-       
-<div key={sensor.id}>
-  
-<Circle
+      return (
+        <div key={sensor.id}>
+
+          <Circle
+            center={sensor.position}
+            radius={
+              status === "ONLINE"
+                ? 90
+                : status === "WARNING"
+                ? 120
+                : 150
+            }
+            pathOptions={{
+              color: getStatusColor(status),
+              fillColor: getStatusColor(status),
+              fillOpacity: 0.04,
+              weight: 0.8,
+            }}
+          />
+
+          <Circle
+            center={sensor.position}
+            radius={
+              status === "ONLINE"
+                ? 140
+                : status === "WARNING"
+                ? 180
+                : 220
+            }
+            pathOptions={{
+              color: getStatusColor(status),
+              fillOpacity: 0,
+              opacity:
+                status === "ONLINE"
+                  ? 0.35
+                  : status === "WARNING"
+                  ? 0.6
+                  : 0.85,
+              weight: 1.5,
+            }}
+          />
+          <Circle
   center={sensor.position}
-  radius={
-    sensor.status === "ONLINE"
-      ? 90
-      : sensor.status === "WARNING"
-      ? 120
-      : 150
-  }
+  radius={55}
+  className="sensor-pulse"
   pathOptions={{
-    color: getStatusColor(sensor.status),
-    fillColor: getStatusColor(sensor.status),
-    fillOpacity: 0.06,
+    color: getSensorColor(sensor.type),
+    fillColor: getSensorColor(sensor.type),
+    fillOpacity: 0.15,
     weight: 1,
-  }}
-/>
-
-<Circle
-  center={sensor.position}
-  radius={
-    sensor.status === "ONLINE"
-      ? 140
-      : sensor.status === "WARNING"
-      ? 180
-      : 220
-  }
-  pathOptions={{
-    color: getStatusColor(sensor.status),
-    fillOpacity: 0,
-    opacity:
-      sensor.status === "ONLINE"
-        ? 0.35
-        : sensor.status === "WARNING"
-        ? 0.6
-        : 0.85,
-    weight: 2,
   }}
 />
 <CircleMarker
   key={sensor.id}
   center={sensor.position}
     radius={
-      sensor.status === "ONLINE"
-      ? 9
-      : sensor.status === "WARNING"
-      ? 11
-      : 13
-    }
+  status === "ONLINE"
+    ? 8
+    : status === "WARNING"
+    ? 9
+    : 10
+}
     pathOptions={{
-      color: "#ffffff",
+      color:"#dff9ff",
       fillColor: getSensorColor(sensor.type),
       fillOpacity: 1,
       weight:
@@ -167,13 +179,13 @@ const getStatusColor = (status) => {
 
 <Popup>
 
-  <div className="text-black min-w-[240px]">
+  <div className="min-w-[250px] rounded-xl bg-slate-900 text-slate-200 p-3">
 
-    <h2 className="font-bold text-lg mb-3">
+    <h2 className="text-cyan-300 text-lg font-semibold mb-4">
       {sensor.name}
     </h2>
 
-    <div className="space-y-2 text-sm">
+    <div className="space-y-2 text-sm text-slate-300">
 
       <div className="flex justify-between">
         <span>Type</span>
@@ -238,11 +250,13 @@ const getStatusColor = (status) => {
         </span>
       </div>
 
-      <hr />
+      <div className="my-3 border-t border-slate-700" />
 
       <div className="flex justify-between">
         <span>AQI</span>
-        <span>{data?.aqi}</span>
+        <span className="font-semibold text-cyan-300">
+          {data?.aqi}
+        </span>
       </div>
 
       <div className="flex justify-between">
@@ -267,8 +281,9 @@ const getStatusColor = (status) => {
 </Popup>
 
 </CircleMarker>
-</div>      
-   ))}
+</div>
+  );
+})} 
   </>
  );
 }

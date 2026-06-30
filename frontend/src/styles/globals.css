@@ -1,10 +1,106 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap');
+
+/* ===============================
+   DESIGN SYSTEM
+================================ */
+
+@import "./theme.css";
+@import "./dashboard.css";
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
 
 body {
   margin: 0;
   padding: 0;
-  background: #071018;
-  color: white;
-  overflow: hidden;
+  overflow-y: auto;
+
   font-family: "Segoe UI", sans-serif;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(22, 78, 99, 0.35),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(8, 145, 178, 0.12),
+      transparent 35%
+    ),
+    #071018;
+}
+
+/* ======================================
+   Premium Scrollbar
+====================================== */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgba(34, 211, 238, 0.45),
+    rgba(34, 211, 238, 0.15)
+  );
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.65);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 211, 238, 0.45) transparent;
+}
+
+/* ======================================
+   Text Selection
+====================================== */
+
+::selection {
+  background: #22d3ee;
+  color: #071018;
+}
+
+/* ======================================
+   Global Smooth Animations
+====================================== */
+
+* {
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
+}
+
+/* ======================================
+   Focus States
+====================================== */
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
 }

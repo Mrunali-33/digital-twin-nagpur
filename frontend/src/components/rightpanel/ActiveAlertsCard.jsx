@@ -1,64 +1,97 @@
+import { motion } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 
-import {
-  areaStatus,
-} from "../../data/areaStatus";
+import PanelCard from "../common/PanelCard";
+
+import { areaStatus } from "../../data/areaStatus";
 
 function ActiveAlertsCard() {
 
-const activeAlerts = [];
+  const activeAlerts = [];
 
-Object.values(areaStatus).forEach(area => {
+  Object.values(areaStatus).forEach((area) => {
 
-  area.alerts.forEach(alert => {
+    area.alerts.forEach((alert) => {
 
-    activeAlerts.push(
-      `${area.name} • ${alert}`
-    );
+      activeAlerts.push({
+        area: area.name,
+        message: alert,
+      });
+
+    });
 
   });
 
-});
-
   return (
 
-    <div className="bg-[#0B1622]/70 border border-cyan-500/20 rounded-xl p-4">
-
-      <div className="flex items-center gap-2 mb-3">
-
-        <AlertTriangle size={18} />
-
-        <h2 className="text-cyan-400 font-bold">
-          Active Alerts
-        </h2>
-
-      </div>
+    <PanelCard
+      title="Active Alerts"
+      icon={<AlertTriangle size={16} className="text-amber-400" />}
+    >
 
       <div className="space-y-2">
 
-        {activeAlerts.map((alert, index) => (
+        {activeAlerts.length === 0 ? (
 
-          <div
-            key={index}
-            className="
-            bg-red-500/10
-            border
-            border-red-500/20
-            rounded-lg
-            p-2
-            text-sm
-            "
-          >
-            {alert}
+          <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-300">
+
+            ✓ No active alerts
+
           </div>
 
-        ))}
+        ) : (
+
+          activeAlerts.map((alert, index) => (
+
+            <motion.div
+              key={index}
+              whileHover={{ x: 2 }}
+              className="
+                flex
+                items-center
+                justify-between
+                rounded-lg
+                border
+                border-red-500/20
+                bg-red-500/10
+                px-3
+                py-2
+              "
+            >
+
+              <div>
+
+                <p className="text-[11px] font-semibold text-red-300">
+
+                  {alert.area}
+
+                </p>
+
+                <p className="text-xs text-slate-300">
+
+                  {alert.message}
+
+                </p>
+
+              </div>
+
+              <AlertTriangle
+                size={14}
+                className="text-red-400 flex-shrink-0"
+              />
+
+            </motion.div>
+
+          ))
+
+        )}
 
       </div>
 
-    </div>
+    </PanelCard>
 
   );
+
 }
 
 export default ActiveAlertsCard;

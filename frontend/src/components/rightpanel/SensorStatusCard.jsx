@@ -1,7 +1,14 @@
+import { motion } from "framer-motion";
+import {
+  Radio,
+  CircleCheck,
+  TriangleAlert,
+} from "lucide-react";
+
+import PanelCard from "../common/PanelCard";
+
 function SensorStatusCard({ data }) {
-
   const sensors = [
-
     {
       name: "AQI Sensor",
       status:
@@ -33,46 +40,84 @@ function SensorStatusCard({ data }) {
           ? "WARNING"
           : "ONLINE",
     },
-
   ];
 
   return (
-
-    <div className="bg-[#0B1622]/70 border border-cyan-500/20 rounded-xl p-4">
-
-      <h2 className="text-cyan-400 font-bold mb-3">
-        Sensor Network
-      </h2>
-
+    <PanelCard
+      title="Live Sensor Status"
+      icon={<Radio size={16} className="text-cyan-300" />}
+    >
       <div className="space-y-2">
 
-        {sensors.map((sensor, index) => (
+        {sensors.map((sensor, index) => {
 
-          <div
-            key={index}
-            className="flex justify-between text-sm"
-          >
+          const online =
+            sensor.status === "ONLINE";
 
-            <span>{sensor.name}</span>
+          return (
 
-            <span
-              className={
-                sensor.status === "ONLINE"
-                  ? "text-green-400"
-                  : "text-yellow-400"
-              }
+            <motion.div
+              key={index}
+              whileHover={{ x: 2 }}
+              className="
+                flex
+                items-center
+                justify-between
+                rounded-lg
+                border
+                border-cyan-500/10
+                bg-cyan-500/5
+                px-3
+                py-2
+              "
             >
-              {sensor.status}
-            </span>
 
-          </div>
+              <div className="flex items-center gap-2">
 
-        ))}
+                {online ? (
+
+                  <CircleCheck
+                    size={14}
+                    className="text-emerald-400"
+                  />
+
+                ) : (
+
+                  <TriangleAlert
+                    size={14}
+                    className="text-amber-400"
+                  />
+
+                )}
+
+                <span className="text-sm text-slate-300">
+
+                  {sensor.name}
+
+                </span>
+
+              </div>
+
+              <span
+                className={
+                  online
+                    ? "text-xs font-semibold tracking-wide text-emerald-400"
+                    : "text-xs font-semibold tracking-wide text-amber-400"
+                }
+              >
+
+                {sensor.status}
+
+              </span>
+
+            </motion.div>
+
+          );
+
+        })}
 
       </div>
-
-    </div>
-
+    </PanelCard>
   );
 }
 

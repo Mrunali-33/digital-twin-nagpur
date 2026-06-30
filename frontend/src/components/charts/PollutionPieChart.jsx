@@ -6,84 +6,149 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function PollutionPieChart({ data }) {
+import AnalyticsCard from "../common/AnalyticsCard";
 
+function PollutionPieChart({ data }) {
   const aqi = data?.aqi || 0;
 
   let chartData = [];
 
   if (aqi <= 100) {
-
     chartData = [
       { name: "Good", value: 70 },
       { name: "Moderate", value: 20 },
       { name: "Poor", value: 10 },
     ];
-
   } else if (aqi <= 200) {
-
     chartData = [
       { name: "Good", value: 20 },
       { name: "Moderate", value: 50 },
       { name: "Poor", value: 30 },
     ];
-
   } else {
-
     chartData = [
       { name: "Good", value: 10 },
       { name: "Moderate", value: 20 },
       { name: "Poor", value: 70 },
     ];
-
   }
 
   const COLORS = [
-    "#22c55e",
-    "#eab308",
-    "#ef4444",
+    "#22C55E",
+    "#EAB308",
+    "#EF4444",
   ];
 
   return (
+    <AnalyticsCard title="Pollution Distribution">
 
-    <div className="bg-[#0B1622]/70 border border-cyan-500/20 rounded-2xl p-4 h-full">
+      <div className="h-full flex flex-col">
 
-      <h2 className="text-cyan-400 font-bold mb-4">
-        Pollution Distribution
-      </h2>
+        {/* Chart */}
 
-      <ResponsiveContainer
-        width="100%"
-        height={220}
-      >
+        <div className="flex-1 min-h-0">
 
-        <PieChart>
+          <ResponsiveContainer width="100%" height="100%">
 
-          <Pie
-            data={chartData}
-            dataKey="value"
-            outerRadius={80}
-          >
+            <PieChart>
 
-            {chartData.map((entry, index) => (
+              <Pie
+                data={chartData}
+                dataKey="value"
+                innerRadius={42}
+                outerRadius={58}
+                paddingAngle={3}
+                stroke="none"
+              >
 
-              <Cell
-                key={index}
-                fill={COLORS[index]}
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={index}
+                    fill={COLORS[index]}
+                  />
+                ))}
+
+              </Pie>
+
+              <text
+                x="50%"
+                y="48%"
+                textAnchor="middle"
+                fill="#E2E8F0"
+                fontSize="20"
+                fontWeight="700"
+              >
+                {aqi}
+              </text>
+
+              <text
+                x="50%"
+                y="60%"
+                textAnchor="middle"
+                fill="#64748B"
+                fontSize="10"
+              >
+                AQI
+              </text>
+
+              <Tooltip
+                contentStyle={{
+                  background: "#071018",
+                  border: "1px solid rgba(34,211,238,.2)",
+                  borderRadius: "10px",
+                  color: "#fff",
+                }}
               />
 
-            ))}
+            </PieChart>
 
-          </Pie>
+          </ResponsiveContainer>
 
-          <Tooltip />
+        </div>
 
-        </PieChart>
+        {/* Legend */}
 
-      </ResponsiveContainer>
+        <div className="mt-2 grid grid-cols-3 gap-2">
 
-    </div>
+          {chartData.map((item, index) => (
 
+            <div
+              key={item.name}
+              className="
+              rounded-lg
+              border
+              border-cyan-500/10
+              bg-white/5
+              px-2
+              py-2
+              text-center
+              "
+            >
+
+              <div
+                className="mx-auto mb-1 h-2 w-2 rounded-full"
+                style={{
+                  background: COLORS[index],
+                }}
+              />
+
+              <p className="text-[10px] text-slate-400">
+                {item.name}
+              </p>
+
+              <p className="text-xs font-semibold text-white">
+                {item.value}%
+              </p>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+    </AnalyticsCard>
   );
 }
 

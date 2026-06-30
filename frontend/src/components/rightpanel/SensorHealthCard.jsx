@@ -1,85 +1,146 @@
+import { motion } from "framer-motion";
+import { Cpu, Wifi, AlertTriangle, WifiOff } from "lucide-react";
+
+import PanelCard from "../common/PanelCard";
 import { sensors } from "../../data/sensors";
-import { Cpu } from "lucide-react";
 
 function SensorHealthCard() {
+  const online = sensors.filter(
+    (s) => s.status === "ONLINE"
+  ).length;
 
-  const online =
-    sensors.filter(
-      s => s.status === "ONLINE"
-    ).length;
+  const warning = sensors.filter(
+    (s) => s.status === "WARNING"
+  ).length;
 
-  const warning =
-    sensors.filter(
-      s => s.status === "WARNING"
-    ).length;
-
-  const offline =
-    sensors.filter(
-      s => s.status === "OFFLINE"
-    ).length;
+  const offline = sensors.filter(
+    (s) => s.status === "OFFLINE"
+  ).length;
 
   const healthScore = Math.round(
     (online / sensors.length) * 100
   );
 
   return (
-
-    <div
-      className="
-      bg-[#0B1622]/70
-      border
-      border-cyan-500/20
-      rounded-xl
-      p-4
-      "
+    <PanelCard
+      title="Sensor Network"
+      icon={<Cpu size={16} className="text-cyan-300" />}
     >
+      {/* Status Rows */}
 
-      <div className="flex items-center gap-2 mb-3">
+      <div className="space-y-2">
 
-        <Cpu
-          size={18}
-          className="text-cyan-400"
-        />
+        <div className="flex items-center justify-between">
 
-        <h2 className="text-cyan-400 font-bold">
-          Sensor Network
-        </h2>
+          <div className="flex items-center gap-2 text-sm text-slate-300">
+
+            <Wifi
+              size={14}
+              className="text-emerald-400"
+            />
+
+            Online
+
+          </div>
+
+          <span className="font-semibold text-emerald-400">
+
+            {online}
+
+          </span>
+
+        </div>
+
+        <div className="flex items-center justify-between">
+
+          <div className="flex items-center gap-2 text-sm text-slate-300">
+
+            <AlertTriangle
+              size={14}
+              className="text-amber-400"
+            />
+
+            Warning
+
+          </div>
+
+          <span className="font-semibold text-amber-400">
+
+            {warning}
+
+          </span>
+
+        </div>
+
+        <div className="flex items-center justify-between">
+
+          <div className="flex items-center gap-2 text-sm text-slate-300">
+
+            <WifiOff
+              size={14}
+              className="text-red-400"
+            />
+
+            Offline
+
+          </div>
+
+          <span className="font-semibold text-red-400">
+
+            {offline}
+
+          </span>
+
+        </div>
 
       </div>
 
-      <div className="space-y-3">
+      {/* Divider */}
 
-        <div className="flex justify-between">
-          <span>🟢 Online</span>
-          <span>{online}</span>
-        </div>
+      <div className="my-3 h-px bg-cyan-500/10" />
 
-        <div className="flex justify-between">
-          <span>🟡 Warning</span>
-          <span>{warning}</span>
-        </div>
+      {/* Bottom */}
 
-        <div className="flex justify-between">
-          <span>🔴 Offline</span>
-          <span>{offline}</span>
-        </div>
+      <div className="flex items-center justify-between">
 
-        <div className="pt-2 border-t border-cyan-500/10">
+        <div>
 
-          <p className="text-gray-400 text-sm">
+          <p className="text-xs text-slate-400">
+
             Network Health
+
           </p>
 
-          <h2 className="text-green-400 text-2xl font-bold">
+          <motion.h2
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-2xl font-bold text-emerald-400"
+          >
             {healthScore}%
-          </h2>
+          </motion.h2>
 
+        </div>
+
+        <div
+          className="
+            h-10
+            w-10
+            rounded-lg
+            bg-emerald-500/10
+            flex
+            items-center
+            justify-center
+          "
+        >
+          <Cpu
+            size={18}
+            className="text-emerald-400"
+          />
         </div>
 
       </div>
 
-    </div>
-
+    </PanelCard>
   );
 }
 

@@ -1,20 +1,19 @@
 import { useState } from "react";
 import {
-  Layers,
+  Layers3,
   CloudRain,
-  Wind,
   Activity,
+  ChartNoAxesCombined,
+  X,
 } from "lucide-react";
 
-function MapControls({
-  layers,
-  setLayers,
-}) {  const [showLayers, setShowLayers] = useState(false);
+function MapControls({ layers, setLayers }) {
+  const [showLayers, setShowLayers] = useState(false);
   const [showAQI, setShowAQI] = useState(false);
   const [showWeather, setShowWeather] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
 
-  const closeOthers = () => {
+  const closeAll = () => {
     setShowLayers(false);
     setShowAQI(false);
     setShowWeather(false);
@@ -22,192 +21,287 @@ function MapControls({
   };
 
   const buttonStyle = `
-    w-10
-    h-10
-    rounded-xl
-    bg-[#102235]
-    backdrop-blur-md
+    h-11
+    w-11
+    rounded-2xl
     border
     border-cyan-500/20
+    bg-slate-900/75
+    backdrop-blur-xl
     text-cyan-300
-    hover:bg-cyan-500/10
-    hover:border-cyan-400
-    transition-all
-    duration-300
+    shadow-[0_8px_25px_rgba(0,255,255,0.08)]
     flex
     items-center
     justify-center
+    transition-all
+    duration-300
+
+    hover:-translate-y-1
+    hover:scale-105
+    hover:border-cyan-400/50
+    hover:bg-cyan-500/10
+    hover:shadow-[0_12px_35px_rgba(0,255,255,0.18)]
+
+    active:scale-95
+  `;
+
+  const popupClass = `
+    absolute
+    top-0
+    left-16
+    w-72
+    rounded-2xl
+    border
+    border-cyan-500/20
+    bg-slate-900/90
+    backdrop-blur-2xl
+    p-5
+    shadow-[0_20px_45px_rgba(0,0,0,.45)]
   `;
 
   return (
     <div
       className="
-      absolute
-      top-3
-      left-1/2
-      -translate-x-1/2
-      z-[99999]
-      flex
-      flex-row
-      gap-2
+        absolute
+        top-25
+        left-4
+        z-[9999]
+        flex
+        flex-col
+        gap-3
       "
     >
+      {/* Layers */}
 
       <button
         onClick={() => {
-          closeOthers();
+          closeAll();
           setShowLayers(true);
         }}
-        className={buttonStyle}
+        className={`${buttonStyle} ${
+          showLayers
+            ? "border-cyan-400 bg-cyan-500/15 shadow-[0_0_25px_rgba(34,211,238,.30)]"
+            : ""
+        }`}
       >
-        <Layers size={20} />
+        <Layers3 size={18} />
       </button>
+
+      {/* AQI */}
 
       <button
         onClick={() => {
-          closeOthers();
+          closeAll();
           setShowAQI(true);
         }}
-        className={buttonStyle}
+        className={`${buttonStyle} ${
+          showAQI
+            ? "border-cyan-400 bg-cyan-500/15 shadow-[0_0_25px_rgba(34,211,238,.30)]"
+            : ""
+        }`}
       >
-        <Activity size={20} />
+        <Activity size={18} />
       </button>
+
+      {/* Weather */}
 
       <button
         onClick={() => {
-          closeOthers();
+          closeAll();
           setShowWeather(true);
         }}
-        className={buttonStyle}
+        className={`${buttonStyle} ${
+          showWeather
+            ? "border-cyan-400 bg-cyan-500/15 shadow-[0_0_25px_rgba(34,211,238,.30)]"
+            : ""
+        }`}
       >
-        <CloudRain size={20} />
+        <CloudRain size={18} />
       </button>
+
+      {/* Analytics */}
 
       <button
         onClick={() => {
-          closeOthers();
+          closeAll();
           setShowAnalytics(true);
         }}
-        className={buttonStyle}
+        className={`${buttonStyle} ${
+          showAnalytics
+            ? "border-cyan-400 bg-cyan-500/15 shadow-[0_0_25px_rgba(34,211,238,.30)]"
+            : ""
+        }`}
       >
-        <Wind size={20} />
+        <ChartNoAxesCombined size={18} />
       </button>
 
-      {(showLayers || showAQI || showWeather || showAnalytics) && (
-        <div
-          className="
-          absolute
-          top-14
-          left-1/2
-          -translate-x-1/2
-          w-72
-          bg-[#071018]/95
-          border
-          border-cyan-500/30
-          rounded-xl
-          p-4
-          backdrop-blur-md
-          shadow-[0_0_20px_rgba(0,255,255,0.15)]
-          z-[99999]
-          "
-        >
+      {/* Popup */}
+
+      {(showLayers ||
+        showAQI ||
+        showWeather ||
+        showAnalytics) && (
+        <div className={popupClass}>
+          {/* Header */}
+
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-cyan-300 tracking-wide">
+              {showLayers && "Map Layers"}
+              {showAQI && "Environmental Status"}
+              {showWeather && "Weather Information"}
+              {showAnalytics && "Analytics"}
+            </h2>
+
+            <button
+              onClick={closeAll}
+              className="text-slate-400 hover:text-cyan-300 transition-colors"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Layers */}
 
           {showLayers && (
-            <>
-              <h2 className="text-cyan-400 font-bold mb-3">
-                Map Layers
-              </h2>
+            <div className="space-y-3 text-sm">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={layers.heatmap}
+                  onChange={() =>
+                    setLayers({
+                      ...layers,
+                      heatmap: !layers.heatmap,
+                    })
+                  }
+                  className="accent-cyan-400"
+                />
+                AQI Heatmap
+              </label>
 
-              <div className="space-y-2 text-sm">
-                <label className="flex gap-2">
-                  <input type="checkbox" defaultChecked />
-                  AQI Layer
-                </label>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={layers.neeri}
+                  onChange={() =>
+                    setLayers({
+                      ...layers,
+                      neeri: !layers.neeri,
+                    })
+                  }
+                  className="accent-cyan-400"
+                />
+                NEERI Boundary
+              </label>
 
-                <label className="flex gap-2">
-                  <input type="checkbox" defaultChecked />
-                  Flood Layer
-                </label>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={layers.rahate}
+                  onChange={() =>
+                    setLayers({
+                      ...layers,
+                      rahate: !layers.rahate,
+                    })
+                  }
+                  className="accent-cyan-400"
+                />
+                Rahate Boundary
+              </label>
 
-                <label className="flex gap-2">
-                  <input type="checkbox" defaultChecked />
-                  Sensors
-                </label>
-
-                <label className="flex gap-2">
-                  <input type="checkbox" defaultChecked />
-                  Risk Zones
-                </label>
-              </div>
-            </>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={layers.sensors}
+                  onChange={() =>
+                    setLayers({
+                      ...layers,
+                      sensors: !layers.sensors,
+                    })
+                  }
+                  className="accent-cyan-400"
+                />
+                Sensor Network
+              </label>
+            </div>
           )}
 
-       {showAQI && (
-         <>
-         <h2 className="text-cyan-400 font-bold mb-3">
-          Environmental Status
-         </h2>
+          {/* AQI */}
 
-         <div className="space-y-3 text-sm">
+          {showAQI && (
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span>🟢 Normal</span>
+                <span>0–100</span>
+              </div>
 
-         <div className="flex items-center gap-2">
-         <span>🟢</span>
-         <span>Normal</span>
-         </div>
+              <div className="flex justify-between">
+                <span>🟡 Moderate</span>
+                <span>101–200</span>
+              </div>
 
-         <div className="flex items-center gap-2">
-         <span>🔴</span>
-         <span>AQI Alert</span>
-         </div>
+              <div className="flex justify-between">
+                <span>🔴 Hazardous</span>
+                <span>200+</span>
+              </div>
 
-         <div className="flex items-center gap-2">
-         <span>🟡</span>
-         <span>Rain Alert</span>
-         </div>
+              <div className="mt-4 rounded-xl border border-cyan-500/10 bg-cyan-500/5 p-3 text-xs text-slate-300">
+                Live environmental conditions are continuously updated via WebSocket.
+              </div>
+            </div>
+          )}
 
-         <div className="flex items-center gap-2">
-         <span>🔵</span>
-         <span>Flood Alert</span>
-         </div>
+          {/* Weather */}
 
-         <div className="flex items-center gap-2">
-         <span>🟣</span>
-         <span>Water Level Alert</span>
-         </div>
-
-         </div>
-         </>
-        )}
           {showWeather && (
-            <>
-              <h2 className="text-cyan-400 font-bold mb-3">
-                Weather
-              </h2>
-
-              <div className="space-y-2 text-sm">
-                <p>🌡 Temperature: 31°C</p>
-                <p>💧 Humidity: 68%</p>
-                <p>🌧 Rainfall: 12 mm</p>
-                <p>💨 Wind: 12 km/h</p>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span>Temperature</span>
+                <span>31°C</span>
               </div>
-            </>
+
+              <div className="flex justify-between">
+                <span>Humidity</span>
+                <span>68%</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Rainfall</span>
+                <span>12 mm</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Wind Speed</span>
+                <span>12 km/h</span>
+              </div>
+            </div>
           )}
+
+          {/* Analytics */}
 
           {showAnalytics && (
-            <>
-              <h2 className="text-cyan-400 font-bold mb-3">
-                Environmental Analytics
-              </h2>
-
-              <div className="space-y-2 text-sm">
-                <p>📡 Sensors Online: 12</p>
-                <p>🛰 Active Nodes: 8</p>
-                <p>💚 Health Score: 78%</p>
-                <p>🗺 Coverage: 84%</p>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span>Sensors Online</span>
+                <span className="text-emerald-400">12</span>
               </div>
-            </>
-          )}
 
+              <div className="flex justify-between">
+                <span>Coverage</span>
+                <span>94%</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Health Score</span>
+                <span className="text-cyan-300">82%</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Active Zones</span>
+                <span>2</span>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

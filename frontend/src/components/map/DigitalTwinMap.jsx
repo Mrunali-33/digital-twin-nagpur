@@ -36,22 +36,124 @@ const [layers, setLayers] = useState({
 });
   return  (
 <div
-   className="
-   h-full
-   bg-[#07111B]
-   border
-   border-cyan-500/20
-   rounded-2xl
-   overflow-hidden
-   shadow-[0_0_25px_rgba(0,255,255,0.08)]
+  className="
+    h-full
+    rounded-3xl
+    border
+    border-cyan-500/15
+    bg-slate-950/60
+    backdrop-blur-xl
+    overflow-hidden
+    shadow-[0_20px_60px_rgba(0,255,255,0.08)]
   "
 >
-    <div className="relative h-full w-full">
+      <div className="relative flex h-full flex-col">
+        
 
      < MapControls
        layers={layers}
        setLayers={setLayers}
      />
+     <div
+  className="
+    absolute
+    top-4
+    left-4
+    z-[900]
+    rounded-2xl
+    border
+    border-cyan-400/20
+    bg-slate-900/70
+    backdrop-blur-xl
+    px-4
+    py-3
+    shadow-[0_10px_35px_rgba(0,255,255,0.12)]
+    transition-all
+    duration-300
+  "
+>
+
+  <div className="flex items-center gap-3">
+
+    <div
+      className="
+        h-10
+        w-10
+        rounded-xl
+        bg-cyan-500/10
+        border
+        border-cyan-500/20
+        flex
+        items-center
+        justify-center
+        text-lg
+      "
+    >
+      🌍
+    </div>
+
+    <div>
+
+      <h3 className="text-sm font-semibold text-cyan-100 tracking-wide">
+
+        Digital Twin
+
+      </h3>
+
+      <p className="text-xs text-slate-400">
+
+        NEERI • Rahate Monitoring
+
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  className="
+    absolute
+    top-4
+    right-4
+    z-[900]
+    rounded-full
+    border
+    border-emerald-500/30
+    bg-emerald-500/10
+    backdrop-blur-xl
+    px-4
+    py-2
+    flex
+    items-center
+    gap-2
+    shadow-[0_0_20px_rgba(16,185,129,.15)]
+  "
+>
+
+  <div
+    className="
+      h-2.5
+      w-2.5
+      rounded-full
+      bg-emerald-400
+      animate-pulse
+    "
+  />
+
+  <span
+    className="
+      text-xs
+      font-semibold
+      tracking-wider
+      text-emerald-300
+    "
+  >
+    LIVE
+  </span>
+
+</div>
 
       <MapContainer
         center={[21.1260, 79.0718]}
@@ -92,9 +194,9 @@ const [layers, setLayers] = useState({
 
         <SensorNetwork />
         
-
-
       </MapContainer>
+
+      
 
     </div>
 

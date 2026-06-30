@@ -1,0 +1,74 @@
+:root {
+
+  /* ===========================
+     BACKGROUND COLORS
+  =========================== */
+
+  --bg-main: #071018;
+  --bg-surface: #0b1622;
+  --bg-panel: rgba(12, 23, 36, 0.72);
+  --bg-card: rgba(18, 30, 45, 0.82);
+
+  /* ===========================
+     TEXT COLORS
+  =========================== */
+
+  --text-primary: #ffffff;
+  --text-secondary: #b7c9d8;
+  --text-muted: #7d97aa;
+
+  /* ===========================
+     ACCENT COLORS
+  =========================== */
+
+  --primary: #00d9ff;
+  --success: #00e676;
+  --warning: #ffc857;
+  --danger: #ff5b6e;
+  --ai: #8b5cf6;
+
+  /* ===========================
+     BORDER COLORS
+  =========================== */
+
+  --border-light: rgba(255,255,255,0.08);
+  --border-glow: rgba(0,217,255,.18);
+
+  /* ===========================
+     SHADOWS
+  =========================== */
+
+  --shadow-soft:
+    0 10px 30px rgba(0,0,0,.22);
+
+  --shadow-glow:
+    0 0 25px rgba(0,217,255,.12);
+
+  /* ===========================
+     GLASS EFFECT
+  =========================== */
+
+  --glass-bg:
+    rgba(12,23,36,.72);
+
+  --glass-border:
+    rgba(255,255,255,.06);
+
+  --glass-blur:
+    blur(18px);
+
+  /* ===========================
+     BORDER RADIUS
+  =========================== */
+
+  --radius-lg:20px;
+  --radius-md:16px;
+  --radius-sm:12px;
+
+  /* ===========================
+     TRANSITIONS
+  =========================== */
+
+  --transition:
+    all .30s ease;
+}

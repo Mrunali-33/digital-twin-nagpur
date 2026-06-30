@@ -52,7 +52,7 @@ const cards = [
   },
 ];
   return (
-    <div className="grid grid-cols-5 gap-2 px-3 pt-2">
+    <div className="grid grid-cols-5 gap-3 px-3 pt-3">
 
       {cards.map((card, index) => (
         <KPICard

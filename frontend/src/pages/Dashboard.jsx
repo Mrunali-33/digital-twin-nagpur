@@ -274,37 +274,40 @@ ws.onerror = (error) => {
 
       {/* MAIN DASHBOARD */}
 
-      <div className="flex-[1.15] flex gap-3 p-3 pt-2 min-h-0">
+     <div className="flex-1 px-3 pt-2 pb-2 min-h-0">
 
-        {/* LEFT SIDEBAR */}
+       <div className="h-full flex gap-3 overflow-hidden">
 
-        <div className="w-[15%] min-h-0">
+      {/* LEFT SIDEBAR */}
 
-          <LeftSidebar data={data} />
+    <div className="w-[15%] h-full overflow-hidden">
 
-        </div>
+      <LeftSidebar data={data} />
 
-        {/* CENTER MAP */}
+    </div>
 
-        <div className="w-[73%] min-h-0">
+    {/* MAP */}
 
-          <DigitalTwinMap data={data} />
+    <div className="flex-1 h-full overflow-hidden">
 
-        </div>
+      <DigitalTwinMap data={data} />
 
-        {/* RIGHT AI PANEL */}
+    </div>
 
-        <div className="w-[16%] min-h-0">
+    {/* RIGHT PANEL */}
 
-          <RightPanel data={data} />
+    <div className="w-[16%] h-full overflow-hidden">
 
-        </div>
+      <RightPanel data={data} />
 
-      </div>
+    </div>
 
+  </div>
+
+ </div>
       {/* BOTTOM ANALYTICS */}
 
-      <div className="h-[220px] px-3 pb-2">
+      <div className="h-[270px] px-3 pb-4">
 
         <BottomAnalytics
           data={data}
@@ -313,12 +316,11 @@ ws.onerror = (error) => {
           zoneComparison={zoneComparison}
           riskTrend={riskTrend}
           environmentHealth={environmentHealth}
-       />
+        />
 
       </div>
 
     </div>
-
   );
 }
 

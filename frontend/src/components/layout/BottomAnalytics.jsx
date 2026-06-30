@@ -16,7 +16,7 @@ function BottomAnalytics({
 }) {
   return (
 
-    <div className="h-full grid grid-cols-5 gap-3">
+    <div className="grid h-full grid-cols-5 gap-3">
 
       <PollutionPieChart
         data={data}

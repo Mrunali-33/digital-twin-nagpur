@@ -1,3 +1,14 @@
+import { motion } from "framer-motion";
+import GlassCard from "../common/GlassCard";
+
+import {
+  Wind,
+  Waves,
+  CloudRain,
+  Droplets,
+  TriangleAlert,
+} from "lucide-react";
+
 function KPICard({
   title,
   value,
@@ -7,20 +18,26 @@ function KPICard({
 
   const valueText = String(value);
 
-  let glowClass =
-    "hover:border-cyan-400/50";
+  let status = "NORMAL";
 
-  let statusText = "NORMAL";
+  let border = "border-cyan-500/20";
+
+  let badge =
+    "bg-cyan-500/10 text-cyan-300";
 
   if (
     valueText.includes("HIGH") ||
     valueText.includes("HAZARDOUS") ||
     Number(value) > 200
   ) {
-    glowClass =
-      "border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.35)]";
 
-    statusText = "CRITICAL";
+    status = "CRITICAL";
+
+    border = "border-red-500/40";
+
+    badge =
+      "bg-red-500/15 text-red-300";
+
   }
 
   else if (
@@ -28,55 +45,105 @@ function KPICard({
     valueText.includes("UNHEALTHY") ||
     Number(value) > 100
   ) {
-    glowClass =
-      "border-yellow-500/50 shadow-[0_0_25px_rgba(234,179,8,0.30)]";
 
-    statusText = "WARNING";
+    status = "WARNING";
+
+    border =
+      "border-yellow-500/40";
+
+    badge =
+      "bg-yellow-500/15 text-yellow-300";
+
   }
 
+  const icons = {
+
+    "🌫": Wind,
+
+    "🌊": Waves,
+
+    "🌧": CloudRain,
+
+    "💧": Droplets,
+
+    "⚠": TriangleAlert,
+
+  };
+
+  const Icon =
+    icons[icon] || Wind;
+
   return (
-    <div
-      className={`
-      bg-[#0B1622]/80
-      border
-      rounded-2xl
-      p-2
-      backdrop-blur-md
-      transition-all
-      duration-300
-      hover:scale-[1.02]
-      ${glowClass}
-      `}
+
+    <GlassCard
+      className={`px-4 py-3 ${border}`}
     >
 
-      <div className="flex justify-between items-start">
+      <div className="flex items-start justify-between">
 
         <div>
 
-          <p className="text-gray-400 text-xs">
+          <p className="text-[11px] uppercase tracking-[2px] text-slate-500">
+
             {title}
+
           </p>
 
-          <h1
-            className={`text-xl font-bold mt-2 ${color}`}
+          <motion.h2
+
+            initial={{
+              opacity: 0,
+              y: 5,
+            }}
+
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+
+            transition={{
+              duration: .3
+            }}
+
+            className={`mt-2 text-[26px] font-bold leading-none ${color}`}
+
           >
-            {value}
-          </h1>
 
-          <p className="text-[10px] text-gray-500 mt-1">
-            {statusText}
-          </p>
+            {value}
+
+          </motion.h2>
 
         </div>
 
-        <div className="text-xl">
-          {icon}
+        <div className="rounded-lg bg-cyan-500/10 p-2">
+
+          <Icon
+            size={18}
+            className="text-cyan-300"
+          />
+
         </div>
 
       </div>
 
-    </div>
+      <div className="mt-3 flex items-center justify-between">
+
+        <span
+          className={`rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-wider ${badge}`}
+        >
+          {status}
+        </span>
+
+        <span className="text-[10px] text-slate-500">
+          LIVE
+        </span>
+
+      </div>
+
+    </GlassCard>
+
   );
+
 }
 
 export default KPICard;
